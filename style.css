@@ -1,0 +1,167 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Keyframes for background gradient animation */
+@keyframes animatedGradientBody {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Keyframes for button shine animation */
+@keyframes buttonShine {
+    0% { transform: translateX(-150%) skewX(-25deg); } /* Start off-screen left */
+    5% { transform: translateX(150%) skewX(-25deg); }  /* Sweep across quickly */
+    100% { transform: translateX(150%) skewX(-25deg); } /* Stay off-screen right for the rest of the cycle */
+}
+
+body {
+    font-family: 'Noto Sans Bengali', 'Open Sans', sans-serif;
+    /* MODIFIED: Faster and nicer animated gradient */
+    background: linear-gradient(
+        130deg, /* Adjusted angle */
+        #a8d8ff, /* Light Sky Blue */
+        #c2e9fb, /* Lighter Sky Blue */
+        #e0f7fa, /* Pale Cyan */
+        #f0f9ff  /* Very Light Blue/Off-white */
+    );
+    background-size: 350% 350%; /* Needs to be larger for smooth animation of position */
+    animation: animatedGradientBody 15s ease infinite; /* MODIFIED: Faster animation (15s) */
+    color: #1c1e21;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    padding: 50px 20px 30px 20px; /* Adjusted top padding slightly */
+    text-align: center;
+    overflow-x: hidden; /* Prevent horizontal scroll if shine element briefly extends */
+}
+
+.container {
+    width: 100%;
+    max-width: 400px;
+    padding: 15px 0;
+}
+
+.profile-header {
+    margin-bottom: 25px;
+}
+
+.profile-picture {
+    width: 200px;  /* MODIFIED: PFP size as per your update */
+    height: 200px; /* MODIFIED: PFP size as per your update */
+    border-radius: 50%;
+    border: 5px solid rgba(255, 255, 255, 0.9); /* Slightly thicker border for larger PFP */
+    box-shadow: 0 6px 22px rgba(0, 0, 0, 0.2); /* Enhanced shadow for larger PFP */
+    object-fit: cover;
+    margin-bottom: 25px; /* MODIFIED: Increased space below larger PFP */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.name {
+    font-size: 2em; /* Slightly increased due to larger PFP */
+    font-weight: 700;
+    color: #074666; /* Deepened color for good contrast */
+    margin-bottom: 10px;
+}
+
+.bio {
+    font-size: 1em; /* Slightly increased */
+    color: #15587a;
+    margin-bottom: 35px; /* Increased space before buttons */
+    padding: 0 10px;
+}
+
+.links-section .link-button {
+    display: block;
+    background-color: #007bff;
+    color: #FFFFFF;
+    padding: 18px; /* Increased padding slightly */
+    margin-bottom: 18px; /* Increased margin slightly */
+    text-decoration: none;
+    border-radius: 14px; /* Slightly more rounded */
+    font-size: 1.15em; /* Slightly increased */
+    font-weight: 600;
+    transition: background-color 0.2s ease, transform 0.15s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    position: relative; /* For the shine pseudo-element */
+    overflow: hidden;   /* To clip the shine effect */
+}
+
+/* Shine pseudo-element for buttons */
+.links-section .link-button::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0; /* Start position for transform */
+    width: 50%; /* Width of the shine element itself */
+    height: 100%;
+    background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.05) 20%, /* Very subtle start */
+        rgba(255, 255, 255, 0.25) 50%, /* Peak of shine - kept subtle */
+        rgba(255, 255, 255, 0.05) 80%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    opacity: 0.8; /* Overall opacity of the shine */
+    /* Animation: name, duration, timing-function, delay, iteration-count */
+    animation: buttonShine 5s infinite 2.5s; /* Shine every 5s, starts after 2.5s delay */
+}
+
+.links-section .link-button:active {
+    background-color: #0056b3;
+    transform: scale(0.98);
+}
+
+@media (hover: hover) {
+    .links-section .link-button:hover { /* Minimal hover for desktop, focus on mobile */
+        background-color: #0069d9;
+        box-shadow: 0 5px 12px rgba(0, 0, 0, 0.18);
+    }
+}
+
+.links-section .link-button:last-child {
+    margin-bottom: 0;
+}
+
+.footer-credit {
+    margin-top: 30px;
+    font-size: 0.85em;
+    color: rgba(0, 0, 0, 0.6);
+}
+
+@media (max-width: 420px) { /* Adjusted breakpoint for PFP scaling */
+    .profile-picture {
+        width: 160px; /* Scale down PFP from 200px */
+        height: 160px;
+    }
+    .name {
+        font-size: 1.8em;
+    }
+}
+
+@media (max-width: 360px) {
+    body {
+        padding: 40px 15px 20px 15px;
+    }
+    .profile-picture {
+        width: 140px; /* Further scale down PFP */
+        height: 140px;
+    }
+    .name {
+        font-size: 1.7em;
+    }
+    .links-section .link-button {
+        padding: 15px;
+        font-size: 1.1em;
+    }
+}
